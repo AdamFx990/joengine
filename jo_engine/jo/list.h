@@ -283,6 +283,20 @@ static  __jo_force_inline void	    jo_list_append(const jo_list * const list, jo
         jo_list_add(output, tmp->data);
 }
 
+/** @brief Find if the first element of the list that satisfies the condition (callback)
+ *  @param list List
+ *  @param extra Extra data passed to the callback
+ *  @param callback callback for each node
+ *  @return The first node that met the condition, or NULL if none meet the condition
+ */
+static __jo_force_inline jo_node*   jo_list_first_where_true(jo_list * const list, jo_node_any_callback callback, void *extra)
+{
+    jo_node* tmp;
+    for (tmp = list->first; tmp != JO_NULL; tmp = tmp->next) if (callback(tmp, extra)) return tmp;
+    return JO_NULL;
+}
+
+
 #endif /* !__JO_LIST_H__ */
 
 /*
